@@ -5,15 +5,18 @@ import ReactionButtons from "./ReactionButtons";
 
 import { Link } from "react-router-dom";
 
-const PostExcerpt = ({ post }) => {
+import { useSelector } from "react-redux";
+import { selectPostById } from "./postsSlice";
+
+const PostExcerpt = ({ postId }) => {
   // Check if post.body is defined before accessing its properties
-  const body = post.body ? post.body.substring(0, 100) : "";
+  const post = useSelector((state) => selectPostById(state, postId));
 
   return (
     <article>
       <h2>{post.title}</h2>
       {/* Render post.body only if it's defined */}
-      {post.body && <p className="excerpt">{body}</p>}
+      <p className="exerpt">{post.body.substring(0, 75)}...</p>
       <p className="postCredit">
         <Link to={`post/${post.id}`}>View Post</Link>
         <PostAuthor userId={post.userId} />

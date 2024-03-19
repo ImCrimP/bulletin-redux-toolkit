@@ -28,7 +28,7 @@ const EditPostForm = () => {
 
   const onTitleChanged = (e) => setTitle(e.target.value);
   const onContentChanged = (e) => setContent(e.target.value);
-  const onAuthorChanged = (e) => setUserId(e.target.value);
+  const onAuthorChanged = (e) => setUserId(Number(e.target.value));
 
   const canSave =
     [title, content, userId].every(Boolean) && requestStatus === "idle";
@@ -42,7 +42,7 @@ const EditPostForm = () => {
             id: post.id,
             title,
             body: content,
-            userId: Number(userId),
+            userId,
             reactions: post.reactions,
           })
         ).unwrap();
